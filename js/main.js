@@ -25,11 +25,20 @@ class ProductList {
 		}
 	}
 	alertProducts() {
-		debugger;
 		let alertText = "";
-		for(let i = 0; i < this.list.length; i++) {
-			alertText = alertText.concat(`\n${i} - ${this.list[i].name}`);
-		}
+		this.list.forEach((item) => {
+			alertText = alertText.concat(`\n- ${item.name}`);
+		});
+		alert(alertText);
+	}
+	alertProductsByPrice(price) {
+		let products = this.list.filter((item) => {
+			return item.price < price;
+		});
+		let alertText = "";
+		products.forEach((item) => {
+			alertText = alertText.concat(`\n- ${item.name}`);
+		});
 		alert(alertText);
 	}
 }
@@ -37,7 +46,7 @@ class ProductList {
 const list = new ProductList;
 let finished = false;
 while(!finished) {
-	switch(prompt("Ingrese una opcion: \n\t1 - Añadir producto\n\t2 - Eliminar producto\n\t3 - Mostrar productos\n\t4 - Salir")) {
+	switch(prompt("Ingrese una opcion: \n1 - Añadir producto\n2 - Eliminar producto\n3 - Mostrar productos\n4 - Mostrar productos por precio\n5 - Salir")) {
 		case "1":
 			list.addProduct(
 				prompt("Ingrese el nombre del producto: "),
@@ -51,6 +60,9 @@ while(!finished) {
 			list.alertProducts();
 			break;
 		case "4":
+			list.alertProductsByPrice(parseInt(prompt("Cual es su precio maximo?")));
+			break;
+		case "5":
 			finished = true;
 			break;
 		default:
