@@ -9,59 +9,60 @@ class Product {
 		this.element.innerHTML =
 		`
 		<div class="card-body">
+			<div class="remove-btn btn btn-danger">X</div>
 			<h5 class="card-title">${name}</h1>
 			<h6 class="card-subtitle">Precio: $${price}</div>
 		</div>
 		`;
 		this.element.className = "card product-card";
+		//Se guarda en variable para ser usado en arrow function
+		let element = this.element; 
+		element.getElementsByClassName("remove-btn")[0].addEventListener("click", () => {
+			if(confirm("Desea eliminar el elemento?")) {
+				element.remove;
+			}
+		});
 	}
 }
 
 //Necesita que haya un elemento html con el id product-container
-class ProductList {
+class ProductManager {
+	manager;
+	buttonsBox;
 	container;
 	list = [];
 	constructor() {
-		this.container = document.getElementById("product-container");
-	}
-	//Recibe nombre y precio, crea un producto, agrega html a content
-	addProduct(name, price) {
-		const product = new Product(name, price);
-		this.list.push(product);
-		this.container.append(product.element);
-	}
-	//Recibe un nombre y elimina el producto
-	removeProduct(productName) {
-		let productIndex = this.list.findIndex((item) => {
-			return item.name == productName;
+		this.manager = document.getElementById("product-manager");
+
+		//Se agregan elementos del componente
+		
+		this.buttonsBox = this.manager.appendChild(document.createElement("div"));
+		this.buttonsBox.innerHTML =
+		`
+		<button type="button" class="add-btn btn btn-success">Añadir producto</button>
+		<button type="button" class="rem-btn btn btn-danger">Eliminar producto</button>
+		`;
+		this.container = this.manager.appendChild(document.createElement("div"));
+		this.container.className = "product-container 5 d-flex flex-row flex-wrap";
+		
+		//Se guarda en una variable para ser usado en arrowFunction
+		let container = this.container
+
+		//Se agregan los eventos de los elementos
+		this.buttonsBox.getElementsByClassName("add-btn")[0].addEventListener("click", () => {
+			let name = prompt("Ingrese el nombre");
+			let price = prompt("Ingrese el precio del producto");
+			if(isNaN(price)) {
+				price = 0;
+			} else {
+				price = parseInt(price);
+			}
+			const product = new Product(name, price);
+			container.append(product.element);
 		});
-		if(productIndex == -1) {
-			console.log("Se intento eliminar un elemento inexistente");
-		} else {
-			this.list.splice(productIndex, 1);
-			alert(productName + " fue eliminado");
-		}
 	}
-	
 }
-const productList = new ProductList;
-
-
-function addProduct() {
-	let name = prompt("Ingrese el nombre");
-	let price = prompt("Ingrese el precio del producto");
-	if(isNaN(price)) {
-		price = 0;
-	} else {
-		price = parseInt(price);
-	}
-	productList.addProduct(name, price);
-}
-
-function removeProduct() {
-	let name = prompt("Ingrese el nombre del producto");
-	productList.removeProduct(name);
-}
+const productList = new ProductManager;
 
 
 
