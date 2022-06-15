@@ -11,8 +11,8 @@
 		<title>Mis productos</title>
 	</head>
 	<body class="text-light">
-		<header class="navbar navbar-dark navbar-expand-lg">
-			<nav class="container-fluid"s> 
+		<header class="navbar navbar-dark navbar-expand-lg fw-bold">
+			<nav class="container-fluid"> 
 				<ul class="navbar-nav">
 					<li class="nav-item">
 						<a class="nav-link">Home</a>
@@ -30,9 +30,12 @@
 			<div class="mt-5">
 				<h1 class="mt-5">Mis productos</h1>
 				<div>
-					<button class="btn btn-success">Añadir producto</button>
-					<button class="btn btn-danger">Eliminar producto</button>
+					<button onclick="addProduct()" type="button" class="btn btn-success">Añadir producto</button>
+					<button type="button" class="btn btn-danger">Eliminar producto</button>
 				</div>
+			</div>
+			<div id="product-container" class="mt-5 d-flex flex-row flex-wrap">
+
 			</div>
 		</main>
 	</body>

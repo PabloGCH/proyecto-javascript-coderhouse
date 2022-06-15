@@ -1,7 +1,28 @@
 header {
-	font-weight: bold;
 	background-color: #6BAA75;
 }
 body {
 	background-color: #545454;
+}
+.product-box {
+	background-color: white;
+}
+.product-card {
+	color: black;
+	width: 250px;
+	height: 300px;
+	overflow-y: scroll;
+	margin: 5px;
+}
+
+/*Escondo la barra de scroll*/
+/*Para chrome, opera y safari*/
+.product-card::-webkit-scrollbar {
+  display: none;
+}
+
+/*Para explorer, edge y firedox*/
+.product-card {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
