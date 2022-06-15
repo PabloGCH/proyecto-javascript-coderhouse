@@ -19,7 +19,7 @@ class Product {
 		let element = this.element; 
 		element.getElementsByClassName("remove-btn")[0].addEventListener("click", () => {
 			if(confirm("Desea eliminar el elemento?")) {
-				element.remove;
+				element.remove();
 			}
 		});
 	}
