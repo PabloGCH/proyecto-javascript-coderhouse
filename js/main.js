@@ -9,7 +9,9 @@ class Product {
 		this.element.innerHTML =
 		`
 		<div class="card-body">
-			<div class="visually-hidden remove-btn btn btn-danger">X</div>
+			<div class="visually-hidden remove-btn btn btn-danger">
+				<i class="fa-solid fa-trash-can"></i>
+			</div>
 			<h5 class="card-title">${name}</h1>
 			<h6 class="card-subtitle">Precio: $${price}</div>
 		</div>
@@ -77,7 +79,7 @@ class ProductManager {
 	addButton(button ,ref) {
 		button.addEventListener("click", () => {
 			if(ref.deleteMode) {
-					alert("Debe salir del modo de eliminado");
+				alert("Debe salir del modo de eliminado");
 			} else {
 				let name = prompt("Ingrese el nombre");
 				let price = prompt("Ingrese el precio del producto");
