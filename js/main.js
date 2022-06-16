@@ -37,9 +37,7 @@ class ProductManager {
 	constructor() {
 		this.deleteMode = false;
 		this.manager = document.getElementById("product-manager");
-
-		//Se agregan elementos del componente
-		
+		//Se agregan elementos del ProductManager
 		this.buttonsBox = this.manager.appendChild(document.createElement("div"));
 		this.buttonsBox.innerHTML =
 		`
@@ -48,15 +46,38 @@ class ProductManager {
 		`;
 		this.container = this.manager.appendChild(document.createElement("div"));
 		this.container.className = "product-container 5 d-flex flex-row flex-wrap";
-		
-		//Guardo la referencia para usarla en el arrowFunction
+		//Guardo la referencia para usarla las arrow functions
 		const ref = this;
-		//Se agregan los eventos de los elementos
-		
-		//Se agrega el evento para el boton de agregado
-		this.buttonsBox.getElementsByClassName("add-btn")[0].addEventListener("click", () => {
+		//Se agregan los eventos de los botones
+		this.addButton(this.buttonsBox.getElementsByClassName("add-btn")[0], ref);
+		this.removeButton(this.buttonsBox.getElementsByClassName("rm-btn")[0],ref);
+
+	}
+	//Funcion para agregar el evento del boton de eliminado
+	//Necesita que le pasen el boton, y el this de ProductManager
+	removeButton(button, ref) {
+		button.addEventListener("click", () => {
+			const rmButtons = ref.container.getElementsByClassName("remove-btn");
 			if(ref.deleteMode) {
-				alert("Debe salir del modo de eliminado");
+				ref.deleteMode = false;
+				for(const el of rmButtons) {
+					el.classList.add("visually-hidden");
+				}
+				ref.cleanList();
+			} else {
+				ref.deleteMode = true;
+				for(const el of rmButtons) {
+					el.classList.remove("visually-hidden");
+				}
+			}
+		});
+	}
+	//Funcion para agregar el evento del boton de agregado
+	//Necesita que le pasen el boton, y el this de ProductManager
+	addButton(button ,ref) {
+		button.addEventListener("click", () => {
+			if(ref.deleteMode) {
+					alert("Debe salir del modo de eliminado");
 			} else {
 				let name = prompt("Ingrese el nombre");
 				let price = prompt("Ingrese el precio del producto");
@@ -70,22 +91,6 @@ class ProductManager {
 				ref.container.append(product.element);
 			}
 		});
-		//Se agrega el evento para el boton de eliminado
-		this.buttonsBox.getElementsByClassName("rm-btn")[0].addEventListener("click", () => {
-			const rmButtons = ref.container.getElementsByClassName("remove-btn");
-			if(ref.deleteMode) {
-				ref.deleteMode = false;
-				for(const el of rmButtons) {
-					el.classList.add("visually-hidden");
-				}
-			} else {
-				ref.deleteMode = true;
-				for(const el of rmButtons) {
-					el.classList.remove("visually-hidden");
-				}
-			}
-		})
-
 	}
 	//Verifica si algunos de los elementos fue eliminado
 	//Si asi fue, lo quita del array list
