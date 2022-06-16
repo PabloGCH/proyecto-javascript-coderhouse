@@ -14,7 +14,7 @@ class Product {
 			<h6 class="card-subtitle">Precio: $${price}</div>
 		</div>
 		`;
-		this.element.className = "card product-card";
+		this.element.className = "card product-card mx-2 my-2";
 		//Guardo la referencia para usarlo dentro de arrow functions
 		let reference = this; 
 		//Agrego la funcion de eliminar al boton
@@ -41,21 +41,21 @@ class ProductManager {
 		this.buttonsBox = this.manager.appendChild(document.createElement("div"));
 		this.buttonsBox.innerHTML =
 		`
-		<button type="button" class="add-btn btn btn-success">Añadir producto</button>
-		<button type="button" class="rm-btn btn btn-danger">Eliminar producto</button>
+		<button type="button" class="add-btn btn btn-success mx-2">Añadir producto</button>
+		<button type="button" class="rm-btn btn btn-danger" mx-2>Eliminar producto</button>
 		`;
 		this.container = this.manager.appendChild(document.createElement("div"));
-		this.container.className = "product-container 5 d-flex flex-row flex-wrap";
+		this.container.className = "product-container mt-3 d-flex flex-row flex-wrap";
 		//Guardo la referencia para usarla las arrow functions
 		const ref = this;
 		//Se agregan los eventos de los botones
 		this.addButton(this.buttonsBox.getElementsByClassName("add-btn")[0], ref);
-		this.removeButton(this.buttonsBox.getElementsByClassName("rm-btn")[0],ref);
+		this.rmButton(this.buttonsBox.getElementsByClassName("rm-btn")[0],ref);
 
 	}
 	//Funcion para agregar el evento del boton de eliminado
 	//Necesita que le pasen el boton, y el this de ProductManager
-	removeButton(button, ref) {
+	rmButton(button, ref) {
 		button.addEventListener("click", () => {
 			const rmButtons = ref.container.getElementsByClassName("remove-btn");
 			if(ref.deleteMode) {

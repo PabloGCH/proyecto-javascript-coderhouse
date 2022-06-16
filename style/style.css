@@ -2,18 +2,25 @@ header {
 	background-color: #6BAA75;
 }
 body {
-	background-color: #545454;
-}
-.product-box {
-	background-color: white;
+	background-color: #1F1F1F;
 }
 .product-card {
 	color: black;
+	background-color: #E9EBEC;
 	width: 250px;
 	height: 300px;
 	overflow-y: scroll;
-	margin: 5px;
+	transition-duration: 0.2s;
 }
+.product-card:hover {
+	transform: scale(1.05);
+}
+.remove-btn {
+	position: absolute;
+	right: 5px;
+	top: 5px;
+}
+
 
 /*Escondo la barra de scroll*/
 /*Para chrome, opera y safari*/
