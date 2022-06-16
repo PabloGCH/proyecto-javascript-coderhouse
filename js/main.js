@@ -9,7 +9,7 @@ class Product {
 		this.element.innerHTML =
 		`
 		<div class="card-body">
-			<div class="remove-btn btn btn-danger">X</div>
+			<div class="visually-hidden remove-btn btn btn-danger">X</div>
 			<h5 class="card-title">${name}</h1>
 			<h6 class="card-subtitle">Precio: $${price}</div>
 		</div>
@@ -32,8 +32,10 @@ class ProductManager {
 	manager;
 	buttonsBox;
 	container;
+	deleteMode;
 	list = [];
 	constructor() {
+		this.deleteMode = false;
 		this.manager = document.getElementById("product-manager");
 
 		//Se agregan elementos del componente
@@ -47,26 +49,41 @@ class ProductManager {
 		this.container = this.manager.appendChild(document.createElement("div"));
 		this.container.className = "product-container 5 d-flex flex-row flex-wrap";
 		
-		//Se guarda en una variable para ser usado en arrowFunction
+		//Guardo la referencia para usarla en el arrowFunction
 		const ref = this;
 		//Se agregan los eventos de los elementos
 		
 		//Se agrega el evento para el boton de agregado
 		this.buttonsBox.getElementsByClassName("add-btn")[0].addEventListener("click", () => {
-			let name = prompt("Ingrese el nombre");
-			let price = prompt("Ingrese el precio del producto");
-			if(isNaN(price)) {
-				price = 0;
+			if(ref.deleteMode) {
+				alert("Debe salir del modo de eliminado");
 			} else {
-				price = parseInt(price);
+				let name = prompt("Ingrese el nombre");
+				let price = prompt("Ingrese el precio del producto");
+				if(isNaN(price)) {
+					price = 0;
+				} else {
+					price = parseInt(price);
+				}
+				const product = new Product(name, price);
+				ref.list.push(product);
+				ref.container.append(product.element);
 			}
-			const product = new Product(name, price);
-			ref.list.push(product);
-			ref.container.append(product.element);
 		});
 		//Se agrega el evento para el boton de eliminado
 		this.buttonsBox.getElementsByClassName("rm-btn")[0].addEventListener("click", () => {
-			
+			const rmButtons = ref.container.getElementsByClassName("remove-btn");
+			if(ref.deleteMode) {
+				ref.deleteMode = false;
+				for(const el of rmButtons) {
+					el.classList.add("visually-hidden");
+				}
+			} else {
+				ref.deleteMode = true;
+				for(const el of rmButtons) {
+					el.classList.remove("visually-hidden");
+				}
+			}
 		})
 
 	}
