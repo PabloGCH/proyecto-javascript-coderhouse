@@ -1,10 +1,8 @@
-class Product {
+class ProductBox {
 	name;
 	price;
 	element;
 	constructor(name, price) {
-		this.name = name;
-		this.price = price;
 		this.element = document.createElement("div");
 		this.element.innerHTML =
 		`
@@ -29,16 +27,16 @@ class Product {
 	}
 }
 
-//Necesita que haya un elemento html con el id product-container
+//Debe recibir un elemento html vacio
 class ProductManager {
 	manager;
 	buttonsBox;
 	container;
 	deleteMode;
 	list = [];
-	constructor() {
+	constructor(manager) {
 		this.deleteMode = false;
-		this.manager = document.getElementById("product-manager");
+		this.manager = manager;
 		//Se agregan elementos del ProductManager
 		this.buttonsBox = this.manager.appendChild(document.createElement("div"));
 		this.buttonsBox.innerHTML =
@@ -88,7 +86,7 @@ class ProductManager {
 				} else {
 					price = parseInt(price);
 				}
-				const product = new Product(name, price);
+				const product = new ProductBox(name, price);
 				ref.list.push(product);
 				ref.container.append(product.element);
 			}
@@ -104,7 +102,7 @@ class ProductManager {
 		}
 	}
 }
-const productList = new ProductManager;
+const productList = new ProductManager(document.getElementById("product-manager"));
 
 
 
