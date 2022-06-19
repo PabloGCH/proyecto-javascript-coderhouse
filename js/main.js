@@ -1,7 +1,4 @@
 class ProductBox {
-	name;
-	price;
-	element;
 	constructor(name, price) {
 		this.element = document.createElement("div");
 		this.element.innerHTML =
@@ -28,7 +25,7 @@ class ProductBox {
 }
 
 //Debe recibir un elemento html vacio
-class ProductManager {
+class ShoppingCart {
 	manager;
 	buttonsBox;
 	container;
@@ -37,7 +34,7 @@ class ProductManager {
 	constructor(manager) {
 		this.deleteMode = false;
 		this.manager = manager;
-		//Se agregan elementos del ProductManager
+		//Se agregan elementos del Carrito
 		this.buttonsBox = this.manager.appendChild(document.createElement("div"));
 		this.buttonsBox.innerHTML =
 		`
@@ -54,7 +51,7 @@ class ProductManager {
 
 	}
 	//Funcion para agregar el evento del boton de eliminado
-	//Necesita que le pasen el boton, y el this de ProductManager
+	//Necesita que le pasen el boton, y el this del shopping-cart
 	rmButton(button, ref) {
 		button.addEventListener("click", () => {
 			const rmButtons = ref.container.getElementsByClassName("remove-btn");
@@ -72,26 +69,6 @@ class ProductManager {
 			}
 		});
 	}
-	//Funcion para agregar el evento del boton de agregado
-	//Necesita que le pasen el boton, y el this de ProductManager
-	addButton(button ,ref) {
-		button.addEventListener("click", () => {
-			if(ref.deleteMode) {
-				alert("Debe salir del modo de eliminado");
-			} else {
-				let name = prompt("Ingrese el nombre");
-				let price = prompt("Ingrese el precio del producto");
-				if(isNaN(price)) {
-					price = 0;
-				} else {
-					price = parseInt(price);
-				}
-				const product = new ProductBox(name, price);
-				ref.list.push(product);
-				ref.container.append(product.element);
-			}
-		});
-	}
 	//Verifica si algunos de los elementos fue eliminado
 	//Si asi fue, lo quita del array list
 	cleanList() {
@@ -102,7 +79,20 @@ class ProductManager {
 		}
 	}
 }
-const productList = new ProductManager(document.getElementById("product-manager"));
+class ProductDisplay {
+	constructor(element, plants) {
+		this.element = element;
+		this.plants = plants;
+		this.loadProducts();
+	}
+	loadProducts() {
+		for(const item of this.plants) {
+			let product = new ProductBox(item.name, item.price);
+			this.element.append(product.element);
+		}
+	}
+}
+const productDisplay = new ProductDisplay(document.getElementById("product-display"), plants)
 
 
 
