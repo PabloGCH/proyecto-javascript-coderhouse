@@ -1,31 +1,7 @@
-class ProductBox {
-	constructor(name, price) {
-		this.element = document.createElement("div");
-		this.element.innerHTML =
-		`
-		<div class="card-body">
-			<div class="visually-hidden remove-btn btn btn-danger">
-				<i class="fa-solid fa-trash-can"></i>
-			</div>
-			<h5 class="card-title">${name}</h1>
-			<h6 class="card-subtitle">Precio: $${price}</div>
-		</div>
-		`;
-		this.element.className = "card product-card mx-2 my-2";
-		//Guardo la referencia para usarlo dentro de arrow functions
-		let reference = this; 
-		//Agrego la funcion de eliminar al boton
-		this.element.getElementsByClassName("remove-btn")[0].addEventListener("click", () => {
-			if(confirm("Desea eliminar el elemento?")) {
-				reference.element.remove();
-				reference.element = 0;
-			}
-		});
-	}
-}
+import ProductBox from "./productBox.js";
 
 //Debe recibir un elemento html vacio
-class ShoppingCart {
+export default class ShoppingCart {
 	manager;
 	buttonsBox;
 	container;
@@ -79,20 +55,3 @@ class ShoppingCart {
 		}
 	}
 }
-class ProductDisplay {
-	constructor(element, plants) {
-		this.element = element;
-		this.plants = plants;
-		this.loadProducts();
-	}
-	loadProducts() {
-		for(const item of this.plants) {
-			let product = new ProductBox(item.name, item.price);
-			this.element.append(product.element);
-		}
-	}
-}
-const productDisplay = new ProductDisplay(document.getElementById("product-display"), plants)
-
-
-
