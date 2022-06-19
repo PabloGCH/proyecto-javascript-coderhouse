@@ -1,5 +1,9 @@
 export default class ProductBox {
 	constructor(name, price, img, summary) {
+		if(summary.length > 140) {
+			summary = summary.slice(0, 140);
+			summary += "...";
+		}
 		this.element = document.createElement("div");
 		this.element.innerHTML =
 		`

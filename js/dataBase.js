@@ -28,3 +28,4 @@ const plants = [
 		summary:"Considered a fancy leaf geranium, the regal usually has solid green foliage, but it also may have variegated green and white leaves. Producing showy blooms, regal geranium colors include shades of lavender, pink, deep red, purple and white. This native of South Africa can bloom for well over 30 years when showered with tender loving care."
 	}
 ]
+export default plants;

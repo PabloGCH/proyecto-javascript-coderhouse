@@ -7,13 +7,12 @@ export default class ProductDisplay {
 	}
 	loadProducts() {
 		let ref = this;
+		let cart = JSON.parse(localStorage.getItem("cart"));
+		if(cart.length > 0) {
+			this.productsInCart = cart;
+		}
 		for(const item of this.plants) {
-			let summary;
-			if(item.summary.length > 140) {
-				summary = item.summary.slice(0, 140);
-				summary += "...";
-			}
-			let product = new ProductBox(item.name, item.price, item.img, summary);
+			let product = new ProductBox(item.name, item.price, item.img, item.summary);
 			let addButton = document.createElement("button");
 			addButton.innerText = "Add to cart"
 			addButton.className = "add-btn btn btn-success";
