@@ -8,7 +8,7 @@ export default class ProductDisplay {
 	loadProducts() {
 		let ref = this;
 		let cart = JSON.parse(localStorage.getItem("cart"));
-		if(cart.length > 0) {
+		if(cart != undefined) {
 			this.productsInCart = cart;
 		}
 		for(const item of this.plants) {

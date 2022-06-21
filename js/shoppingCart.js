@@ -7,7 +7,6 @@ export default class ShoppingCart {
 		this.list = JSON.parse(localStorage.getItem("cart"));
 		this.deleteMode = false;
 		this.deleteButton = this.element.appendChild(document.createElement("button"));
-		console.log(this.deleteButton);
 		this.deleteButton.innerText = "Delete products";
 		this.deleteButton.className = "ms-2 mt-2 btn btn-danger"
 		this.productContainer = this.element.appendChild(document.createElement("div"));
@@ -28,22 +27,26 @@ export default class ShoppingCart {
 		});
 	}
 	loadProducts() {
-		let ref = this;
-		for(const item of this.list) {
-			let product = new ProductBox(item.name, item.price, item.img, item.summary);
-			let rmButton = document.createElement("button");
-			rmButton.innerHTML = `<i class="fa-solid fa-trash-can"></i>`;
-			rmButton.className = "rm-btn btn btn-danger visually-hidden";
-			rmButton.addEventListener("click", () => {
-				product.element.remove();
-				let delIndex = ref.list.findIndex((el) => {
-					return el == item;
+		if(this.list != undefined) {
+			let ref = this;
+			for(const item of this.list) {
+				let product = new ProductBox(item.name, item.price, item.img, item.summary);
+				let rmButton = document.createElement("button");
+				rmButton.innerHTML = `<i class="fa-solid fa-trash-can"></i>`;
+				rmButton.className = "rm-btn btn btn-danger visually-hidden";
+				rmButton.addEventListener("click", () => {
+					if(confirm("Desea remover el producto del carrito ?")) {
+						product.element.remove();
+						let delIndex = ref.list.findIndex((el) => {
+							return el == item;
+						});
+						ref.list.splice(delIndex, 1);
+						localStorage.setItem("cart", JSON.stringify(ref.list));
+					}
 				});
-				ref.list.splice(delIndex, 1);
-				localStorage.setItem("cart", JSON.stringify(ref.list));
-			});
-			product.element.append(rmButton);
-			this.productContainer.append(product.element);
+				product.element.append(rmButton);
+				this.productContainer.append(product.element);
+			}
 		}
 	}
 }
