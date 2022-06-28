@@ -20,7 +20,6 @@ export default class ShoppingCart {
 				ref.productContainer.classList.remove("hide-rm"),
 				true
 			);
-			console.log(ref.deleteMode);
 		});
 	}
 	removeButtonEvent(button, product) {
