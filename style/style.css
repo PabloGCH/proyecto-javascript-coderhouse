@@ -20,6 +20,10 @@ body {
 	width: 100%;
 	height: 200px;
 }
+.hide-rm .product-card .rm-btn{
+	background: blue;
+	display: none;
+}
 
 .rm-btn {
 	position: absolute;
