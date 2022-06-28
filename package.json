@@ -1,0 +1,19 @@
+{
+  "name": "proyecto-javascript-coderhouse",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PabloGCH/proyecto-javascript-coderhouse.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PabloGCH/proyecto-javascript-coderhouse/issues"
+  },
+  "homepage": "https://github.com/PabloGCH/proyecto-javascript-coderhouse#readme"
+}
