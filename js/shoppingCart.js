@@ -35,14 +35,38 @@ export default class ShoppingCart {
 				rmButton.innerHTML = `<i class="fa-solid fa-trash-can"></i>`;
 				rmButton.className = "rm-btn btn btn-danger visually-hidden";
 				rmButton.addEventListener("click", () => {
-					if(confirm("Desea remover el producto del carrito ?")) {
-						product.element.remove();
-						let delIndex = ref.list.findIndex((el) => {
-							return el == item;
-						});
-						ref.list.splice(delIndex, 1);
-						localStorage.setItem("cart", JSON.stringify(ref.list));
-					}
+					Swal.fire({
+						icon: "warning",
+						title: "Are you sure ?",
+						text: "This will remove the product from the cart.",
+						buttonsStyling: false,
+						customClass: {
+							confirmButton: "btn ms-2 btn-danger",
+							cancelButton: "btn me-2 btn-secondary"
+						},
+						confirmButtonText: "Delete",
+						cancelButtonText: "Cancel",
+						showCancelButton: true,
+						reverseButtons: true
+					}).then(response => {
+						if(response.isConfirmed) {
+							product.element.remove();
+							let delIndex = ref.list.findIndex((el) => {
+								return el == item;
+							});
+							ref.list.splice(delIndex, 1);
+							localStorage.setItem("cart", JSON.stringify(ref.list));
+							Swal.fire({
+								icon: "success",
+								title: "Product removed",
+								text: "The product has been removed from the cart successfully",
+								buttonsStyling: false,
+								customClass: {
+									confirmButton: "btn btn-success"
+								}
+							});
+						}
+					});
 				});
 				product.element.append(rmButton);
 				this.productContainer.append(product.element);
