@@ -2,6 +2,7 @@ import ProductBox from "./productBox.js";
 export default class ProductDisplay {
 	constructor(element) {
 		this.element = element;
+		this.URL = "./database.json";
 		this.productsInCart = []; 
 	}
 	addButtonEvent(button, product) {
@@ -37,16 +38,20 @@ export default class ProductDisplay {
 			});
 		});
 	}
-	loadProducts(products) {
+	loadProducts() {
 		this.productsInCart = JSON.parse(localStorage.getItem("cart")) || [];
-		for(const item of products) {
-			let product = new ProductBox(item);
-			let addButton = document.createElement("button");
-			addButton.innerText = "Add to cart";
-			addButton.className = "add-btn btn btn-success";
-			this.addButtonEvent(addButton, item);
-			product.element.append(addButton);
-			this.element.append(product.element);
-		}
+		fetch(this.URL)
+		.then((response) => response.json())
+		.then((data) => {
+			for(const item of data) {
+				let product = new ProductBox(item);
+				let addButton = document.createElement("button");
+				addButton.innerText = "Add to cart";
+				addButton.className = "add-btn btn btn-success";
+				this.addButtonEvent(addButton, item);
+				product.element.append(addButton);
+				this.element.append(product.element);
+			}
+		});
 	}
 }
