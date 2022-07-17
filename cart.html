@@ -9,32 +9,59 @@
 		<script defer src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 		<script type="module" defer src="js/index.js"></script>
 		<script defer src="https://kit.fontawesome.com/651ceef0bd.js" crossorigin="anonymous"></script>
-		<title>Mis productos</title>
+		<title>Idyllic Garden - cart</title>
 	</head>
 	<body class="text-light">
-		<header class="navbar navbar-dark navbar-expand-lg fw-bold">
-			<nav class="container-fluid d-flex">
-				<button class="navbar-toggler align-self-start" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-expanded="true" aria-controls="navbar">
+		<header class="navbar navbar-dark navbar-expand-lg fw-bold header header-alt-opaque justify-content-center">
+			
+			<img src="assets/logo/logo2.png" class="ms-3">
+			<span class="ms-2 header-brandname">Idyllic Garden</span>
+			<button class="navbar-toggler ms-auto me-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-expanded="true" aria-controls="navbar">
     					<i class="fa-solid fa-bars"></i>
-				</button>
+			</button>
+			<nav class="container-fluid d-flex">
 				<ul id="navbar" class="navbar-nav collapse navbar-collapse justify-content-lg-end">
 					<li class="nav-item">
-						<a class="nav-link" href="index.html">Home</a>
+						<a class="nav-link" href="index.html">
+							<i class="fa-solid fa-house"></i>
+							<span>Home</span>
+						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link active">Cart</a>
+						<a class="nav-link active">
+							<i class="fa-solid fa-cart-shopping"></i>
+							<span>Cart</span>
+						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link">Contact</a>
+						<a class="nav-link">
+							<i class="fa-solid fa-message"></i>
+							<span>Contact</span>
+						</a>
 					</li>
 				</ul>
 			</nav>
 		</header>
-		<main class="px-4">
-			<h1 class="mt-5 ms-1">Shopping cart</h1>
-			<div id="shopping-cart">
+
+		<main class="padding-top">
+			<h1 class="products-title">
+				Shopping Cart
+				<i class="fa-solid fa-cart-shopping"></i>
+			</h1>
+			<div id="shopping-cart" class="mx-sm-4 mx-md-5">
 
 			</div>
 		</main>
+
+		<footer class="footer">
+			<div>
+				<i class="fa-brands fa-instagram-square"></i>
+				<i class="fa-brands fa-twitter-square"></i>
+				<i class="fa-brands fa-facebook-square"></i>
+			</div>
+			<p>Idylic Garden&copy;2022</p>
+		</footer>
+
+
 	</body>
 </html>

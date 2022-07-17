@@ -1,26 +1,24 @@
-import ProductBox from "./productBox.js";
+import CartElement from './cartElement.js';
 
 //Debe recibir un elemento html vacio
 export default class ShoppingCart {
 	constructor(element) {
 		this.element = element;
 		this.list = JSON.parse(localStorage.getItem("cart")) || [];
-		this.deleteMode = false;
-		this.deleteButton = this.element.appendChild(document.createElement("button"));
-		this.deleteButton.innerText = "Delete products";
-		this.deleteButton.className = "ms-2 mt-2 btn btn-danger"
-		this.productContainer = this.element.appendChild(document.createElement("div"));
-		this.productContainer.className = "mt-3 d-flex flex-row flex-wrap hide-rm";
-		let ref = this;
-		this.deleteButton.addEventListener("click", () => {
-			ref.deleteMode = ref.deleteMode ? (
-				ref.productContainer.classList.add("hide-rm"),
-				false
-			) : (
-				ref.productContainer.classList.remove("hide-rm"),
-				true
-			);
-		});
+		
+		let productTable = this.element.appendChild(document.createElement("table"));
+		productTable.className = "table text-light";
+		let tableHead = productTable.appendChild(document.createElement("thead"));
+		tableHead.innerHTML = `
+			<tr>
+				<th>Name</th>
+				<th>Price</th>
+				<th>Quantity</th>
+				<th></th>
+			</tr>
+		`
+		this.tableBody = productTable.appendChild(document.createElement("tbody"));
+
 	}
 	removeButtonEvent(button, product) {
 		let ref = this;
@@ -39,13 +37,17 @@ export default class ShoppingCart {
 					showCancelButton: true,
 					reverseButtons: true
 				}).then(response => {
-					response.isConfirmed && (
-						button.parentNode.remove(),
-						ref.list.splice(
-							ref.list.findIndex(el => el == product),
-							1
-						),
-						localStorage.setItem("cart", JSON.stringify(ref.list)),
+					if(response.isConfirmed) {
+						if(product.quantity > 1){
+							product.quantity--;
+						} else { 
+							button.parentNode.parentNode.remove();
+							ref.list.splice(
+								ref.list.findIndex(el => el == product),
+								1
+							);
+							
+						}
 						Swal.fire({
 							icon: "success",
 							title: "Product removed",
@@ -55,20 +57,25 @@ export default class ShoppingCart {
 								confirmButton: "btn btn-success"
 							}
 						})
-					)
+						this.loadProducts();
+						localStorage.setItem("cart", JSON.stringify(ref.list));
+					}
 				});
 			});
 
 	}
 	loadProducts() {
+		this.tableBody.innerHTML = "";
 		for(const item of this.list) {
-			let product = new ProductBox(item);
+			let product = new CartElement(item);
+			let buttonCell = document.createElement("td");
 			let rmButton = document.createElement("button");
 			rmButton.innerHTML = `<i class="fa-solid fa-trash-can"></i>`;
 			rmButton.className = "rm-btn btn btn-danger";
 			this.removeButtonEvent(rmButton, item);
-			product.element.append(rmButton);
-			this.productContainer.append(product.element);
+			buttonCell.append(rmButton);
+			product.element.append(buttonCell)
+			this.tableBody.append(product.element);
 		}
 	}
 }

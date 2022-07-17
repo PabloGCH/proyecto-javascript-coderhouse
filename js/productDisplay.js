@@ -22,9 +22,19 @@ export default class ProductDisplay {
 				showCancelButton: true,
 				reverseButtons: true
 			}).then(response => {
-				response.isConfirmed && (
-					ref.productsInCart.push(product),
-					localStorage.setItem("cart", JSON.stringify(ref.productsInCart)),
+				if(response.isConfirmed) {
+					let item = this.productsInCart.find(el => {
+						return product.id == el.id;
+					})
+					if(item) {
+						item.quantity++;
+					} else {
+						ref.productsInCart.push({
+							quantity: 1,
+							...product
+						});
+						
+					}
 					Swal.fire({
 						icon: "success",
 						title: "Thanks!!",
@@ -33,8 +43,9 @@ export default class ProductDisplay {
 						customClass: {
 							confirmButton: "btn btn-success"
 						}
-					})
-				)
+					});
+					localStorage.setItem("cart", JSON.stringify(ref.productsInCart));
+				}
 			});
 		});
 	}
