@@ -11,8 +11,8 @@ export default class ProductBox {
 		<img src="${img}">
 		<div class="card-body">
 			<h5 class="card-title">${name}</h5>
-			<h6 class="card-subtitle">Price: $${price}/seed</h6>
-			<div class="product-description-box">
+			<h6 class="card-subtitle text-success fw-bold mt-1">$${price}/seed</h6>
+			<div class="product-description-box mt-1">
 				<p class="card-text">${shortSum}</p>
 			</div>
 		</div>
