@@ -39,10 +39,11 @@ export default class ShoppingCart {
 				reverseButtons: true
 			})
 			.then(res => {
-				this.list = [];
-				localStorage.removeItem("cart");
-				this.loadProducts();
+				
 				if(res.isConfirmed) {
+					this.list = [];
+					localStorage.removeItem("cart");
+					this.loadProducts();
 					Swal.fire({
 						icon: "success",
 						title: "Happy planting!!!",
