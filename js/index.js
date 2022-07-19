@@ -4,7 +4,7 @@ import Header from "./header.js";
 
 
 if(window.location.href.includes("cart.html")) {
-	const shoppingCart = new ShoppingCart(document.getElementById("shopping-cart"));
+	const shoppingCart = new ShoppingCart(document.getElementById("shopping-cart"), document.getElementById("buy-button"));
 	shoppingCart.loadProducts();
 } else {
 	const header = new Header(document.getElementsByClassName("header")[0]);

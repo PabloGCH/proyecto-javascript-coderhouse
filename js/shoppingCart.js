@@ -2,7 +2,7 @@ import CartElement from './cartElement.js';
 
 //Debe recibir un elemento html vacio
 export default class ShoppingCart {
-	constructor(element) {
+	constructor(element, buyButton) {
 		this.element = element;
 		this.list = JSON.parse(localStorage.getItem("cart")) || [];
 		
@@ -18,8 +18,49 @@ export default class ShoppingCart {
 			</tr>
 		`
 		this.tableBody = productTable.appendChild(document.createElement("tbody"));
+		this.buyButtonEvent(buyButton);
 
 	}
+	
+	buyButtonEvent(buyButton) {
+		buyButton.addEventListener("click", () => {
+			Swal.fire({
+				icon: "question",
+				title: "Are you sure?",
+				text: "This will buy all the products in the shopping cart",
+				buttonsStyling: false,
+				customClass: {
+					confirmButton: "btn ms-2 btn-success",
+					cancelButton: "btn me-2 btn-secondary"
+				},
+				cancelButtonText: "Cancel",
+				confirmButtonText: "Buy",
+				showCancelButton: true,
+				reverseButtons: true
+			})
+			.then(res => {
+				this.list = [];
+				localStorage.removeItem("cart");
+				this.loadProducts();
+				if(res.isConfirmed) {
+					Swal.fire({
+						icon: "success",
+						title: "Happy planting!!!",
+						text: "Thanks for your purchase!",
+						buttonsStyling: false,
+						customClass: {
+							confirmButton: "btn btn-success"
+						}
+
+					}).then(() => {
+						window.location = "/";
+					})
+				}
+				
+			})
+		})
+	}
+
 	removeButtonEvent(button, product) {
 		let ref = this;
 		button.addEventListener("click", () => {
